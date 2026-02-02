@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">P4_madrid_AdrianErika</string>
+    <!-- ID -->
+    <string name="R1_ID">1</string>
+    <!-- NAME -->
+    <string name="R1_NAME">Fratelli Figurato</string>
+    <!-- ADDRESS -->
+    <string name="R1_ADDRESS">Calle Alonso Cano 37</string>
+    <!-- URL -->
+    <string name="R1_URL">https://maps.app.goo.gl/yeYZyT7zBLmcPf9W7</string>
+
 </resources>
