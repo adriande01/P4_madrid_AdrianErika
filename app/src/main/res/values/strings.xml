@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">P4_madrid_AdrianErika</string>
+    <!-- RESTAURANTS -->
+    <string name="RESTAURANTS">RESTAURANTS</string>
+
+    <!-- CINEMAS -->
+    <string name="CINEMAS">CINEMAS</string>
+
+    <!-- PARKS -->
+    <string name="PARKS">PARKS</string>
+
+    <!-- R1 -->
     <!-- ID -->
     <string name="R1_ID">1</string>
     <!-- NAME -->
@@ -8,5 +18,29 @@
     <string name="R1_ADDRESS">Calle Alonso Cano 37</string>
     <!-- URL -->
     <string name="R1_URL">https://maps.app.goo.gl/yeYZyT7zBLmcPf9W7</string>
+
+    <!-- C1 -->
+    <!-- ID -->
+    <string name="C1_ID">2</string>
+    <!-- NAME -->
+    <string name="C1_NAME">Cine Yelmo Ideal</string>
+    <!-- ADDRESS -->
+    <string name="C1_ADDRESS">Calle del Dr Cortezo, 6</string>
+    <!-- URL -->
+    <string name="C1_URL">https://maps.app.goo.gl/nu2qt2TrUz3ALeEKA</string>
+
+
+    <!-- P1 -->
+    <!-- ID -->
+    <string name="P1_ID">3</string>
+    <!-- NAME -->
+    <string name="P1_NAME">El Retiro</string>
+    <!-- ADDRESS -->
+    <string name="P1_ADDRESS">Retiro, 28009 Madrid</string>
+    <!-- URL -->
+    <string name="P1_URL">https://maps.app.goo.gl/2kzfX89upXspCRQq8</string>
+
+
+
 
 </resources>

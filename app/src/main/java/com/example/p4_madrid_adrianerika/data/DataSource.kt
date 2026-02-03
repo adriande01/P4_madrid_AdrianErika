@@ -18,8 +18,27 @@ class DataSource {
             R.string.R1_ADDRESS,
             R.string.R1_URL,
             false
+        ),
+        Place(
+            R.string.C1_ID,
+            Type.CINEMA,
+            SubType.C_MANY_S,
+            R.string.C1_NAME,
+            R.drawable.c1,
+            R.string.C1_ADDRESS,
+            R.string.C1_URL,
+            false
+        ),
+        Place(
+            R.string.P1_ID,
+            Type.PARK,
+            SubType.P_BIG,
+            R.string.P1_NAME,
+            R.drawable.p1,
+            R.string.P1_ADDRESS,
+            R.string.P1_URL,
+            false
         )
-
     )
 
     // Func to toggle the fav value
