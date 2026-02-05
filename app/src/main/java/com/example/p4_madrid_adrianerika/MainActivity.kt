@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.Type
+import com.example.p4_madrid_adrianerika.ui.components.Header
 import com.example.p4_madrid_adrianerika.ui.screens.HomeScreen
 import com.example.p4_madrid_adrianerika.ui.screens.InfoScreen
 import com.example.p4_madrid_adrianerika.ui.screens.ListScreen
@@ -27,45 +28,48 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            P4_madrid_AdrianErikaTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    main(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            Main()
         }
     }
 }
 
 @Composable
-fun main(modifier: Modifier = Modifier) {
+fun Main() {
     // 1. Create NavController
     val navController = rememberNavController()
 
-
-    // 2. Create NavHost
-    NavHost(navController = navController, startDestination = "home", modifier = modifier) {
-        // Draw Home screen
-        composable("home") {
-            // Call HomeScreem function
-            HomeScreen(onCategoryClick = { type -> navigateToListScreen(navController, type) })
+    // 2. Create Scaffold as structure of our app (top ==> Head, Bottom ==> NavHost)
+    Scaffold(
+        topBar = {
+            // HEADER
+            Header()
         }
+    ) { innerPadding ->
+        // 3. Create NavHost and introduce inside Scaffold
+        NavHost(navController = navController, startDestination = "home", modifier = Modifier.padding(innerPadding)) {
+            // Draw Home screen
+            composable("home") {
+                // Call HomeScreem function
+                HomeScreen(onCategoryClick = { type -> navigateToListScreen(navController, type) })
+            }
 
-        // Draw List screen
-        composable("list/{type}") { backStackEntry ->
-            val type =
-                backStackEntry.arguments?.getString("type") ?: stringResource(R.string.RESTAURANTS)
-            ListScreen(type, onListClick = { place -> navigateToInfoScreen(navController, place) })
-        }
+            // Draw List screen
+            composable("list/{type}") { backStackEntry ->
+                val type =
+                    backStackEntry.arguments?.getString("type") ?: stringResource(R.string.RESTAURANTS)
+                ListScreen(type, onListClick = { place -> navigateToInfoScreen(navController, place) })
+            }
 
-        // Draw Info screen
-        composable("info/{id}") { backStackEntry ->
-            val id =
-                backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
-            InfoScreen(id)
+            // Draw Info screen
+            composable("info/{id}") { backStackEntry ->
+                val id =
+                    backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
+                InfoScreen(id)
+            }
         }
     }
+
+
 
 }
 
@@ -82,8 +86,6 @@ fun navigateToInfoScreen(navController: NavHostController, place: Place) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    P4_madrid_AdrianErikaTheme {
-
-    }
+    Main()
 }
 

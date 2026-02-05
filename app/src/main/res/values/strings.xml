@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mapdrid</string>
+
     <string name="RESTAURANTS">RESTAURANTS</string>
 
     <string name="CINEMAS">CINEMAS</string>
@@ -77,5 +78,14 @@
     <string name="P4_NAME">Templo de Debod</string>
     <string name="P4_ADDRESS">Calle de Ferraz, 1</string>
     <string name="P4_URL">https://maps.app.goo.gl/GQK9Fj3Mfy9YGM546</string>
+
+
+    <string name="T_IS_TOGGLED">Selected icon button</string>
+    <string name="T_IS_NOT_TOGGLED">Unselected icon button.</string>
+
+    <string name="MADRID">MADRID</string>
+
+
+
 
 </resources>

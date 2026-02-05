@@ -1,9 +1,16 @@
 package com.example.p4_madrid_adrianerika.ui.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.p4_madrid_adrianerika.R
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.Type
@@ -24,6 +31,11 @@ fun InfoScreen(
 
     Card() {
         Text(text = stringResource(placeF?.address ?: R.string.R1_ADDRESS))
+        Spacer(modifier = Modifier.width(80.dp))
+        Image(
+            painter = painterResource(placeF?.image ?: R.drawable.r1),
+            contentDescription = ""
+        )
     }
 
 }
