@@ -1,46 +1,81 @@
 <resources>
-    <string name="app_name">P4_madrid_AdrianErika</string>
-    <!-- RESTAURANTS -->
+    <string name="app_name">Mapdrid</string>
     <string name="RESTAURANTS">RESTAURANTS</string>
 
-    <!-- CINEMAS -->
     <string name="CINEMAS">CINEMAS</string>
 
-    <!-- PARKS -->
     <string name="PARKS">PARKS</string>
 
-    <!-- R1 -->
-    <!-- ID -->
     <string name="R1_ID">1</string>
-    <!-- NAME -->
     <string name="R1_NAME">Fratelli Figurato</string>
-    <!-- ADDRESS -->
     <string name="R1_ADDRESS">Calle Alonso Cano 37</string>
-    <!-- URL -->
-    <string name="R1_URL">https://maps.app.goo.gl/yeYZyT7zBLmcPf9W7</string>
+    <string name="R1_URL">https://maps.app.goo.gl/HQ573Zm7cCzRaotE7</string>
 
-    <!-- C1 -->
-    <!-- ID -->
-    <string name="C1_ID">2</string>
-    <!-- NAME -->
+    <string name="R2_ID">2</string>
+    <string name="R2_NAME">Grosso Napoletano</string>
+    <string name="R2_ADDRESS">Calle de Sta Engracia, 48</string>
+    <string name="R2_URL">https://maps.app.goo.gl/CPjhux7McNsJ5Cr66</string>
+
+    <string name="R3_ID">3</string>
+    <string name="R3_NAME">Goiko Grill</string>
+    <string name="R3_ADDRESS">Calle de Prado, 15</string>
+    <string name="R3_URL">https://maps.app.goo.gl/55xNwPPunmLwwCEKA</string>
+
+    <string name="R4_ID">4</string>
+    <string name="R4_NAME">Burnout</string>
+    <string name="R4_ADDRESS">Calle de Fuencarral, 148</string>
+    <string name="R4_URL">https://maps.app.goo.gl/eTJEjBN9L2zvRDZ98</string>
+
+    <string name="R5_ID">5</string>
+    <string name="R5_NAME">Running Sushi in Osaka</string>
+    <string name="R5_ADDRESS">Calle de Hermosilla, 103</string>
+    <string name="R5_URL">https://maps.app.goo.gl/mnS5z27b1G1Wu5YZ7</string>
+
+    <string name="R6_ID">6</string>
+    <string name="R6_NAME">La Cabaña Argentina</string>
+    <string name="R6_ADDRESS">C. de Ventura de la Vega, 9, y 10,</string>
+    <string name="R6_URL">https://maps.app.goo.gl/2t5C3AQkmAzEaegs9</string>
+
+
+    <string name="C1_ID">7</string>
     <string name="C1_NAME">Cine Yelmo Ideal</string>
-    <!-- ADDRESS -->
     <string name="C1_ADDRESS">Calle del Dr Cortezo, 6</string>
-    <!-- URL -->
-    <string name="C1_URL">https://maps.app.goo.gl/nu2qt2TrUz3ALeEKA</string>
+    <string name="C1_URL">https://maps.app.goo.gl/9oZeRJXS86aKwKKH8</string>
+
+    <string name="C2_ID">8</string>
+    <string name="C2_NAME">Cinesa Proyecciones</string>
+    <string name="C2_ADDRESS">Calle de Fuencarral, 136</string>
+    <string name="C2_URL">https://maps.app.goo.gl/bgKaYLqmPcDD3vrA7</string>
+
+    <string name="C3_ID">9</string>
+    <string name="C3_NAME">Cine Doré</string>
+    <string name="C3_ADDRESS">Calle de Santa Isabel, 3</string>
+    <string name="C3_URL">https://maps.app.goo.gl/zv9A3i5FESDDN9YQA</string>
+
+    <string name="C4_ID">10</string>
+    <string name="C4_NAME">Sala Equis</string>
+    <string name="C4_ADDRESS">Calle del Duque de Alba, 4</string>
+    <string name="C4_URL">https://maps.app.goo.gl/kgQVG8ebJYKt7nqe9</string>
 
 
-    <!-- P1 -->
-    <!-- ID -->
-    <string name="P1_ID">3</string>
-    <!-- NAME -->
+    <string name="P1_ID">11</string>
     <string name="P1_NAME">El Retiro</string>
-    <!-- ADDRESS -->
     <string name="P1_ADDRESS">Retiro, 28009 Madrid</string>
-    <!-- URL -->
-    <string name="P1_URL">https://maps.app.goo.gl/2kzfX89upXspCRQq8</string>
+    <string name="P1_URL">https://maps.app.goo.gl/bJU8dMtTaQJzcQFP6</string>
 
+    <string name="P2_ID">12</string>
+    <string name="P2_NAME">Casa de Campo</string>
+    <string name="P2_ADDRESS">Paseo de la Puerta del Ángel, 1</string>
+    <string name="P2_URL">https://maps.app.goo.gl/EVJfBtq6f2aNfiwu8</string>
 
+    <string name="P3_ID">13</string>
+    <string name="P3_NAME">Real Jardín Botánico</string>
+    <string name="P3_ADDRESS">Plaza de Murillo, 2</string>
+    <string name="P3_URL">https://maps.app.goo.gl/cEhKmTHTvthT2MLq8</string>
 
+    <string name="P4_ID">14</string>
+    <string name="P4_NAME">Templo de Debod</string>
+    <string name="P4_ADDRESS">Calle de Ferraz, 1</string>
+    <string name="P4_URL">https://maps.app.goo.gl/GQK9Fj3Mfy9YGM546</string>
 
 </resources>

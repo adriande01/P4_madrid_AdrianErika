@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.Type
 import com.example.p4_madrid_adrianerika.ui.screens.HomeScreen
+import com.example.p4_madrid_adrianerika.ui.screens.InfoScreen
 import com.example.p4_madrid_adrianerika.ui.screens.ListScreen
 import com.example.p4_madrid_adrianerika.ui.theme.P4_madrid_AdrianErikaTheme
 
@@ -44,29 +45,37 @@ fun main(modifier: Modifier = Modifier) {
 
 
     // 2. Create NavHost
-    NavHost(navController = navController, startDestination = "home", modifier = modifier){
+    NavHost(navController = navController, startDestination = "home", modifier = modifier) {
         // Draw Home screen
-        composable("home"){
+        composable("home") {
             // Call HomeScreem function
-            HomeScreen(onCategoryClick =  { type -> navigateToListScreen(navController,type)})
+            HomeScreen(onCategoryClick = { type -> navigateToListScreen(navController, type) })
         }
 
-        composable("list/{type}"){
-                backStackEntry -> val type = backStackEntry.arguments?.getString("type") ?: stringResource(R.string.RESTAURANTS)
+        // Draw List screen
+        composable("list/{type}") { backStackEntry ->
+            val type =
+                backStackEntry.arguments?.getString("type") ?: stringResource(R.string.RESTAURANTS)
+            ListScreen(type, onListClick = { place -> navigateToInfoScreen(navController, place) })
+        }
 
-            ListScreen(type, onListClick = {place -> navigateToInfoScreen(navController, place)})
+        // Draw Info screen
+        composable("info/{id}") { backStackEntry ->
+            val id =
+                backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
+            InfoScreen(id)
         }
     }
 
 }
 
 // Function to navigate to List Screen with the name of type received
-fun navigateToListScreen(navController: NavHostController, type: Type){
+fun navigateToListScreen(navController: NavHostController, type: Type) {
     navController.navigate("list/${type.name}")
 }
 
 // Function to navigate to Info Screen with the id of place received
-fun navigateToInfoScreen(navController: NavHostController, place: Place){
+fun navigateToInfoScreen(navController: NavHostController, place: Place) {
     navController.navigate("info/${place.id}")
 }
 
