@@ -33,7 +33,6 @@ import com.example.p4_madrid_adrianerika.R
 // Fun header app to show info about our app and hamburguer menu
 @Composable
 fun Header() {
-    var isToggled by rememberSaveable { mutableStateOf(false) }
     var settingsMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var hamburgerMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var isDarkMode by rememberSaveable { mutableStateOf(false) }
@@ -61,14 +60,13 @@ fun Header() {
                 // SETTINGS ICON
                 IconButton(
                     onClick = {
-                        isToggled = !isToggled
                         settingsMenuExpanded = !settingsMenuExpanded
                     }
 
                 ) {
                     Icon(
-                        imageVector = if (isToggled) Icons.Outlined.Settings else Icons.Filled.Settings,
-                        contentDescription = if (isToggled) stringResource(R.string.T_IS_TOGGLED) else stringResource(
+                        imageVector = if (settingsMenuExpanded) Icons.Filled.Settings else Icons.Outlined.Settings,
+                        contentDescription = if (settingsMenuExpanded) stringResource(R.string.T_IS_TOGGLED) else stringResource(
                             R.string.T_IS_NOT_TOGGLED
                         )
                     )
