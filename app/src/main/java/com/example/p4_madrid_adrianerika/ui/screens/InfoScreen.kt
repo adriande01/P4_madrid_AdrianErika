@@ -106,7 +106,7 @@ fun InfoScreen(
             shape = RectangleShape,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(280.dp)
+                .height(350.dp)
         ) {
             Image(
                 painter = painterResource(placeF?.image ?: R.drawable.r1),

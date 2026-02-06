@@ -97,7 +97,7 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
                     Icon(
 
                         painter = painterResource(id = R.drawable.ic_menu_colored),
-                        contentDescription = "Menú",
+                        contentDescription = "Menu",
 
                         tint = Color.Unspecified
                     )
@@ -109,7 +109,6 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
                             text = { Text("About Us") },
                             onClick = {
                                 hamburgerMenuExpanded = false
-                                // Abre el link que quieras
                                 val url = "https://github.com/adriande01/P4_madrid_AdrianErika.git"
                                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                 context.startActivity(intent)
