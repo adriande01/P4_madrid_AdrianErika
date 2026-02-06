@@ -1,6 +1,8 @@
 package com.example.p4_madrid_adrianerika.ui.components
 
 import android.R.attr.contentDescription
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,14 +27,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.p4_madrid_adrianerika.R
+import androidx.core.net.toUri
 
 // Fun header app to show info about our app and hamburguer menu
 @Composable
 fun Header() {
+    val context = LocalContext.current
     var settingsMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var hamburgerMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var isDarkMode by rememberSaveable { mutableStateOf(false) }
@@ -88,7 +93,9 @@ fun Header() {
                 }
 
                 // HAMBURGUER MENU
-                IconButton(onClick = { /* Acción para abrir el menú */ }) {
+                IconButton(onClick = {
+                    hamburgerMenuExpanded = !hamburgerMenuExpanded
+                }) {
                     Icon(
 
                         painter = painterResource(id = R.drawable.ic_menu_colored),
@@ -96,17 +103,21 @@ fun Header() {
 
                         tint = Color.Unspecified
                     )
-//                    DropdownMenu(
-//                        expanded = menuExpanded,
-//                        onDismissRequest = { menuExpanded = false }
-//                    ) {
-//                        DropdownMenuItem(onClick = {
-//                            isDarkMode = !isDarkMode    // cambia el tema
-//                            menuExpanded = false    // cierra el menú
-//                        }) {
-//                            Text(if (isDarkMode) "Modo Claro" else "Modo Oscuro")
-//                        }
-//                    }
+                    DropdownMenu(
+                        expanded = hamburgerMenuExpanded,
+                        onDismissRequest = { hamburgerMenuExpanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("About Us") },
+                            onClick = {
+                                hamburgerMenuExpanded = false
+                                // Abre el link que quieras
+                                val url = "https://github.com/adriande01/P4_madrid_AdrianErika.git"
+                                val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                                context.startActivity(intent)
+                            }
+                        )
+                    }
                 }
             }
         }
