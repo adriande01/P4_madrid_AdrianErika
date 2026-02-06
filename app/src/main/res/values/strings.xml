@@ -2,10 +2,18 @@
     <string name="app_name">Mapdrid</string>
 
     <string name="RESTAURANTS">RESTAURANTS</string>
-
     <string name="CINEMAS">CINEMAS</string>
-
     <string name="PARKS">PARKS</string>
+
+    <string name="PIZZERIAS">PIZZERIAS</string>
+    <string name="HAMBURGUERS">HAMBURGUERS</string>
+    <string name="BUFFETS">BUFFETS</string>
+
+    <string name="MANY_SEATS">MANY SEATS</string>
+    <string name="FEW_SEATS">FEW SEATS</string>
+
+    <string name="BIG_PARKS">BIG PARKS</string>
+    <string name="LITTLE_PARKS">LITTLE PARKS</string>
 
     <string name="R1_ID">1</string>
     <string name="R1_NAME">Fratelli Figurato</string>
