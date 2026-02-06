@@ -1,8 +1,6 @@
 package com.example.p4_madrid_adrianerika.ui.components
 
-import android.R.attr.contentDescription
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,17 +34,17 @@ import androidx.core.net.toUri
 
 // Fun header app to show info about our app and hamburguer menu
 @Composable
-fun Header() {
+fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
     val context = LocalContext.current
     var settingsMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var hamburgerMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var isDarkMode by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp),
-        color = MaterialTheme.colorScheme.error
+        color = MaterialTheme.colorScheme.primary
+
     ) {
         Row(
             modifier = Modifier
@@ -87,7 +85,7 @@ fun Header() {
                             Text(if (isDarkMode) "Modo Claro" else "Modo Oscuro")
                         },
                         onClick = {
-                        isDarkMode = !isDarkMode
+                        onToggleDarkMode()
                         settingsMenuExpanded = false
                     })
                 }

@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,40 +40,52 @@ class MainActivity : ComponentActivity() {
 fun Main() {
     // 1. Create NavController
     val navController = rememberNavController()
+    var isDarkMode by rememberSaveable { mutableStateOf(false) }
+
 
     // 2. Create Scaffold as structure of our app (top ==> Head, Bottom ==> NavHost)
-    Scaffold(
-        topBar = {
-            // HEADER
-            Header()
-        }
-    ) { innerPadding ->
-        // 3. Create NavHost and introduce inside Scaffold
-        NavHost(navController = navController, startDestination = "home", modifier = Modifier.padding(innerPadding)) {
-            // Draw Home screen
-            composable("home") {
-                // Call HomeScreem function
-                HomeScreen(onCategoryClick = { type -> navigateToListScreen(navController, type) })
-            }
+    P4_madrid_AdrianErikaTheme(darkTheme = isDarkMode, dynamicColor = false) {
+        Scaffold(
+            topBar = { Header(isDarkMode = isDarkMode, onToggleDarkMode = { isDarkMode = !isDarkMode }) }
+        ) { innerPadding ->
+            // 3. Create NavHost and introduce inside Scaffold
+            NavHost(
+                navController = navController,
+                startDestination = "home",
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                // Draw Home screen
+                composable("home") {
+                    // Call HomeScreem function
+                    HomeScreen(onCategoryClick = { type ->
+                        navigateToListScreen(
+                            navController,
+                            type
+                        )
+                    })
+                }
 
-            // Draw List screen
-            composable("list/{type}") { backStackEntry ->
-                val type =
-                    backStackEntry.arguments?.getString("type") ?: stringResource(R.string.RESTAURANTS)
-                ListScreen(type, onListClick = { place -> navigateToInfoScreen(navController, place) })
-            }
+                // Draw List screen
+                composable("list/{type}") { backStackEntry ->
+                    val type =
+                        backStackEntry.arguments?.getString("type")
+                            ?: stringResource(R.string.RESTAURANTS)
+                    ListScreen(
+                        type,
+                        onListClick = { place -> navigateToInfoScreen(navController, place) })
+                }
 
-            // Draw Info screen
-            composable("info/{id}") { backStackEntry ->
-                val id =
-                    backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
-                InfoScreen(id)
+                // Draw Info screen
+                composable("info/{id}") { backStackEntry ->
+                    val id =
+                        backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
+                    InfoScreen(id)
+                }
             }
         }
+
+
     }
-
-
-
 }
 
 // Function to navigate to List Screen with the name of type received
