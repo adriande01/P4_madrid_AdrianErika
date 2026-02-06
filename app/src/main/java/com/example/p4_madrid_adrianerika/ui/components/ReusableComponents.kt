@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +34,9 @@ import com.example.p4_madrid_adrianerika.R
 @Composable
 fun Header() {
     var isToggled by rememberSaveable { mutableStateOf(false) }
-    var menuExpanded by rememberSaveable { mutableStateOf(false) }
+    var settingsMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    var hamburgerMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    var isDarkMode by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier
@@ -59,7 +62,7 @@ fun Header() {
                 IconButton(
                     onClick = {
                         isToggled = !isToggled
-                        menuExpanded = !menuExpanded
+                        settingsMenuExpanded = !settingsMenuExpanded
                     }
 
                 ) {
@@ -71,10 +74,20 @@ fun Header() {
                     )
                 }
 
+                // Dropdown Settings
                 DropdownMenu(
-                    expanded = menuExpanded,
-                    onDismissRequest = { expan }
-                ) { }
+                    expanded = settingsMenuExpanded,
+                    onDismissRequest = { settingsMenuExpanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = {
+                            Text(if (isDarkMode) "Modo Claro" else "Modo Oscuro")
+                        },
+                        onClick = {
+                        isDarkMode = !isDarkMode
+                        settingsMenuExpanded = false
+                    })
+                }
 
                 // HAMBURGUER MENU
                 IconButton(onClick = { /* Acción para abrir el menú */ }) {
@@ -85,6 +98,17 @@ fun Header() {
 
                         tint = Color.Unspecified
                     )
+//                    DropdownMenu(
+//                        expanded = menuExpanded,
+//                        onDismissRequest = { menuExpanded = false }
+//                    ) {
+//                        DropdownMenuItem(onClick = {
+//                            isDarkMode = !isDarkMode    // cambia el tema
+//                            menuExpanded = false    // cierra el menú
+//                        }) {
+//                            Text(if (isDarkMode) "Modo Claro" else "Modo Oscuro")
+//                        }
+//                    }
                 }
             }
         }
