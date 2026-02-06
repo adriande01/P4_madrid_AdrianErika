@@ -20,6 +20,9 @@
     <string name="GB">https://github.com/adriande01/P4_madrid_AdrianErika.git</string>
 
     <string name="MENU">Menu</string>
+    <string name="FILTER_MENU">Filter Menu</string>
+    <string name="FAVORITES">Favorites</string>
+    <string name="FILTER">FILTER</string>
 
     <string name="R1_ID">1</string>
     <string name="R1_NAME">Fratelli Figurato</string>

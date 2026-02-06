@@ -27,9 +27,26 @@ class ViewModel : ViewModel() {
     // DataSource
     private val dataSource: DataSource = DataSource()
 
+    // Check menu expanded
+    var filterMenuExpanded by mutableStateOf(false)
+
+    // Control only favorite checkbox places
+    var showOnlyFavorites by mutableStateOf(false)
+
+    // Save selected only selected sybtypes in filter (checkboxes)
+    var selectedSubTypes by mutableStateOf(setOf<SubType>())
+
     // Mutable list to save all fav ids better than change actual object (redraw)
     var favoriteIds by mutableStateOf(setOf<Int>())
         private set
+
+    fun toggleSubTypeFilter(subType: SubType) {
+        selectedSubTypes = if (selectedSubTypes.contains(subType)) {
+            selectedSubTypes - subType
+        } else {
+            selectedSubTypes + subType
+        }
+    }
 
     fun toggleFavorite(id: String) {
         val idInt = id.toIntOrNull() ?: return
@@ -60,12 +77,20 @@ class ViewModel : ViewModel() {
         }
     }
 
-    fun getPlacesGroupedBySubtype(typeName: String): Map<SubType, List<Place>> {
+    // Filter places depending on fav or subtype or both
+    fun getFilteredPlacesGrouped(typeName: String): Map<SubType, List<Place>> {
         return try {
             val typeEnum = Type.valueOf(typeName)
-            val allPlacesOfType = dataSource.getPlaces(typeEnum)
-            // Group list by subtype
-            allPlacesOfType.groupBy { it.subType }
+            val allPlaces = dataSource.getPlaces(typeEnum)
+
+            allPlaces.filter { place ->
+                // If switch fav is on ==> only fav
+                val matchesFav = if (showOnlyFavorites) favoriteIds.contains(place.id) else true
+                // If there is not selected subtype includes all, if not ==> includes only selected subtypes
+                val matchesSub = if (selectedSubTypes.isNotEmpty()) selectedSubTypes.contains(place.subType) else true
+
+                matchesFav && matchesSub
+            }.groupBy { it.subType }
         } catch (e: Exception) {
             emptyMap()
         }
