@@ -15,6 +15,12 @@
     <string name="BIG_PARKS">BIG PARKS</string>
     <string name="LITTLE_PARKS">LITTLE PARKS</string>
 
+    <string name="ABOUT_US">About us</string>
+
+    <string name="GB">https://github.com/adriande01/P4_madrid_AdrianErika.git</string>
+
+    <string name="MENU">Menu</string>
+
     <string name="R1_ID">1</string>
     <string name="R1_NAME">Fratelli Figurato</string>
     <string name="R1_ADDRESS">Calle Alonso Cano, 37</string>

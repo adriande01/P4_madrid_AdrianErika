@@ -31,13 +31,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.p4_madrid_adrianerika.R
 import androidx.core.net.toUri
+import com.example.p4_madrid_adrianerika.ui.viewmodels.ViewModel
 
 // Fun header app to show info about our app and hamburguer menu
 @Composable
-fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
+fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewModel) {
+    // Get the context
     val context = LocalContext.current
-    var settingsMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var hamburgerMenuExpanded by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier
@@ -63,13 +63,14 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
                 // SETTINGS ICON
                 IconButton(
                     onClick = {
-                        settingsMenuExpanded = !settingsMenuExpanded
+                        // Call toggle settings menu expanded from ViewModel Sepiote
+                        viewModel.settingsMenuExpanded = !viewModel.settingsMenuExpanded
                     }
 
                 ) {
                     Icon(
-                        imageVector = if (settingsMenuExpanded) Icons.Filled.Settings else Icons.Outlined.Settings,
-                        contentDescription = if (settingsMenuExpanded) stringResource(R.string.T_IS_TOGGLED) else stringResource(
+                        imageVector = if (viewModel.settingsMenuExpanded) Icons.Filled.Settings else Icons.Outlined.Settings,
+                        contentDescription = if (viewModel.settingsMenuExpanded) stringResource(R.string.T_IS_TOGGLED) else stringResource(
                             R.string.T_IS_NOT_TOGGLED
                         )
                     )
@@ -77,8 +78,10 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
 
                 // Dropdown Settings
                 DropdownMenu(
-                    expanded = settingsMenuExpanded,
-                    onDismissRequest = { settingsMenuExpanded = false }
+                    // Get expanded from ViewModel
+                    expanded = viewModel.settingsMenuExpanded,
+                    // Toggle expanded from ViewModel
+                    onDismissRequest = { viewModel.settingsMenuExpanded = false }
                 ) {
                     DropdownMenuItem(
                         text = {
@@ -86,30 +89,32 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit) {
                         },
                         onClick = {
                         onToggleDarkMode()
-                        settingsMenuExpanded = false
+                        viewModel.settingsMenuExpanded = false
                     })
                 }
 
                 // HAMBURGUER MENU
                 IconButton(onClick = {
-                    hamburgerMenuExpanded = !hamburgerMenuExpanded
+                    viewModel.hamburgerMenuExpanded = !viewModel.hamburgerMenuExpanded
                 }) {
                     Icon(
 
                         painter = painterResource(id = R.drawable.ic_menu_colored),
-                        contentDescription = "Menu",
+                        contentDescription = stringResource(R.string.MENU),
 
                         tint = Color.Unspecified
                     )
                     DropdownMenu(
-                        expanded = hamburgerMenuExpanded,
-                        onDismissRequest = { hamburgerMenuExpanded = false }
+                        expanded = viewModel.hamburgerMenuExpanded,
+                        onDismissRequest = { viewModel.hamburgerMenuExpanded = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("About Us") },
+                            // Text from strings.xml Sepion
+                            text = { Text(stringResource(R.string.ABOUT_US)) },
                             onClick = {
-                                hamburgerMenuExpanded = false
-                                val url = "https://github.com/adriande01/P4_madrid_AdrianErika.git"
+                                viewModel.hamburgerMenuExpanded = false
+                                // URL GB form strings.xml Sepia loca
+                                val url = context.getString(R.string.GB)
                                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                 context.startActivity(intent)
                             }

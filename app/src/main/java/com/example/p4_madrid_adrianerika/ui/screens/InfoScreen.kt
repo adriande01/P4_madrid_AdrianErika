@@ -34,10 +34,12 @@ import com.example.p4_madrid_adrianerika.ui.viewmodels.ViewModel
 
 @Composable
 fun InfoScreen(
-    id: String
+    id: String,
+    // Same instance for all screens
+    myViewModel: ViewModel,
 ) {
-    // 1. Get ViewModel
-    val myViewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    // 1. Get ViewModel (NOT NOW CAUSE WE USE THE SAME INSTANCE IN ALL SCREENS)
+    //val myViewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
     // 2. Get the place by id to show his info, default: R1
     val placeF =
@@ -46,8 +48,9 @@ fun InfoScreen(
     // Context for Intents (Maps and Share)
     val context = LocalContext.current
 
-    // State for Favorite (Star icon)
-    var isFavorite by remember { mutableStateOf(placeF?.favorite ?: false) }
+    // State for Favorite (Star icon) from ViewModel
+    val favoriteIds = myViewModel.favoriteIds
+    val isFavorite = favoriteIds.contains(placeF?.id)
 
     Column(
         modifier = Modifier
@@ -75,8 +78,8 @@ fun InfoScreen(
                     .size(32.dp)
                     .padding(start = 4.dp)
                     .clickable {
-                        isFavorite = !isFavorite
-
+                        // Change / toggle state calling ViewModel
+                        myViewModel.toggleFavorite(id)
                     }
             )
         }

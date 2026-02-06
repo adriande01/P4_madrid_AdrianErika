@@ -25,6 +25,7 @@ import com.example.p4_madrid_adrianerika.ui.screens.HomeScreen
 import com.example.p4_madrid_adrianerika.ui.screens.InfoScreen
 import com.example.p4_madrid_adrianerika.ui.screens.ListScreen
 import com.example.p4_madrid_adrianerika.ui.theme.P4_madrid_AdrianErikaTheme
+import com.example.p4_madrid_adrianerika.ui.viewmodels.ViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,16 +38,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Main() {
+fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
     // 1. Create NavController
     val navController = rememberNavController()
-    var isDarkMode by rememberSaveable { mutableStateOf(false) }
+
+    // 1.5 Call dark mode from viewModel to save the state
+    val isDarkMode = viewModel.isDarkMode
 
 
     // 2. Create Scaffold as structure of our app (top ==> Head, Bottom ==> NavHost)
     P4_madrid_AdrianErikaTheme(darkTheme = isDarkMode, dynamicColor = false) {
         Scaffold(
-            topBar = { Header(isDarkMode = isDarkMode, onToggleDarkMode = { isDarkMode = !isDarkMode }) }
+            topBar = {
+                Header(
+                    isDarkMode = isDarkMode,
+                    // Call toggle dark mode from viewModel Cefalópodo
+                    onToggleDarkMode = { viewModel.toggleDarkMode() },
+                    // Pass the viewModel to Header fun
+                    viewModel = viewModel
+                )
+            }
         ) { innerPadding ->
             // 3. Create NavHost and introduce inside Scaffold
             NavHost(
@@ -72,6 +83,8 @@ fun Main() {
                             ?: stringResource(R.string.RESTAURANTS)
                     ListScreen(
                         type,
+                        // Same instance for all screens
+                        myViewModel = viewModel,
                         onListClick = { place -> navigateToInfoScreen(navController, place) })
                 }
 
@@ -79,7 +92,12 @@ fun Main() {
                 composable("info/{id}") { backStackEntry ->
                     val id =
                         backStackEntry.arguments?.getString("id") ?: stringResource(R.string.R1_ID)
-                    InfoScreen(id)
+                    InfoScreen(
+                        id,
+                        // Same instance for all screens
+                        myViewModel = viewModel
+                    )
+
                 }
             }
         }
