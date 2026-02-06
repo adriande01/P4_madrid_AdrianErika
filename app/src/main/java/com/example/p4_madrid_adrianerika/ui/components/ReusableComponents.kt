@@ -32,6 +32,7 @@ import com.example.p4_madrid_adrianerika.R
 @Composable
 fun Header() {
     var isToggled by rememberSaveable { mutableStateOf(false) }
+    var menuExpanded by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier
@@ -55,7 +56,11 @@ fun Header() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // SETTINGS ICON
                 IconButton(
-                    onClick = { isToggled = !isToggled }
+                    onClick = {
+                        isToggled = !isToggled
+                        menuExpanded = !menuExpanded
+                    }
+
                 ) {
                     Icon(
                         imageVector = if (isToggled) Icons.Outlined.Settings else Icons.Filled.Settings,
