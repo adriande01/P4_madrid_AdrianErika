@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.p4_madrid_adrianerika.R
 import androidx.core.net.toUri
@@ -42,21 +43,24 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp),
+            .height(70.dp)
+            .padding(top = 20.dp),
         color = MaterialTheme.colorScheme.primary
 
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp,),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             // TITLE MADRID
             Text(
                 text = stringResource(R.string.MADRID),
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.tertiary,
+                fontWeight = FontWeight.Bold
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -65,14 +69,16 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
                     onClick = {
                         // Call toggle settings menu expanded from ViewModel Sepiote
                         viewModel.settingsMenuExpanded = !viewModel.settingsMenuExpanded
-                    }
+                    },
+
 
                 ) {
                     Icon(
                         imageVector = if (viewModel.settingsMenuExpanded) Icons.Filled.Settings else Icons.Outlined.Settings,
                         contentDescription = if (viewModel.settingsMenuExpanded) stringResource(R.string.T_IS_TOGGLED) else stringResource(
                             R.string.T_IS_NOT_TOGGLED
-                        )
+                        ),
+                        tint = MaterialTheme.colorScheme.tertiary
                     )
                 }
 
@@ -85,7 +91,7 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
                 ) {
                     DropdownMenuItem(
                         text = {
-                            Text(if (isDarkMode) "Modo Claro" else "Modo Oscuro")
+                            Text(if (isDarkMode) "Light Mode" else "Dark Mode")
                         },
                         onClick = {
                         onToggleDarkMode()
@@ -109,11 +115,11 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
                         onDismissRequest = { viewModel.hamburgerMenuExpanded = false }
                     ) {
                         DropdownMenuItem(
-                            // Text from strings.xml Sepion
+                            // Text from strings.xml
                             text = { Text(stringResource(R.string.ABOUT_US)) },
                             onClick = {
                                 viewModel.hamburgerMenuExpanded = false
-                                // URL GB form strings.xml Sepia loca
+                                // URL GB form strings.xml
                                 val url = context.getString(R.string.GB)
                                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                 context.startActivity(intent)
