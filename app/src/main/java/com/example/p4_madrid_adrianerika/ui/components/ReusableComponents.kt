@@ -90,13 +90,34 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
                     onDismissRequest = { viewModel.settingsMenuExpanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = {
-                            Text(if (isDarkMode) "Light Mode" else "Dark Mode")
-                        },
+                        text = { Text(if (isDarkMode) "Light Mode" else "Dark Mode") },
                         onClick = {
-                        onToggleDarkMode()
-                        viewModel.settingsMenuExpanded = false
-                    })
+                            onToggleDarkMode()
+                            viewModel.settingsMenuExpanded = false
+                        }
+                    )
+
+                    DropdownMenuItem(
+                        text = { Text("Red Theme") },
+                        onClick = {
+                            viewModel.setTheme("RED")
+                            viewModel.settingsMenuExpanded = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Blue Theme") },
+                        onClick = {
+                            viewModel.setTheme("BLUE")
+                            viewModel.settingsMenuExpanded = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Pink Theme") },
+                        onClick = {
+                            viewModel.setTheme("PINK")
+                            viewModel.settingsMenuExpanded = false
+                        }
+                    )
                 }
 
                 // HAMBURGUER MENU

@@ -31,18 +31,60 @@ val LightColorScheme = lightColorScheme(
 @Composable
 fun P4_madrid_AdrianErikaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    themeName: String = "RED", // Default theme
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val context = LocalContext.current
+
+    val colorScheme = when (themeName.uppercase()) {
+        "BLUE" -> if (darkTheme) {
+            darkColorScheme(
+                primary = BlueDarkPrimary,
+                secondary = BlueDarkSecondary,
+                tertiary = BlueDarkTertiary,
+                background = BlueDarkBackground
+            )
+        } else {
+            lightColorScheme(
+                primary = BlueLightPrimary,
+                secondary = BlueLightSecondary,
+                tertiary = BlueLightTertiary,
+                background = BlueLightBackground
+            )
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        "PINK" -> if (darkTheme) {
+            darkColorScheme(
+                primary = PinkDarkPrimary,
+                secondary = PinkDarkSecondary,
+                tertiary = PinkDarkTertiary,
+                background = PinkDarkBackground
+            )
+        } else {
+            lightColorScheme(
+                primary = PinkLightPrimary,
+                secondary = PinkLightSecondary,
+                tertiary = PinkLightTertiary,
+                background = PinkLightBackground
+            )
+        }
+
+        else -> if (darkTheme) { // Default red theme
+            darkColorScheme(
+                primary = RedDarkPrimary,
+                secondary = RedDarkSecondary,
+                tertiary = RedDarkTertiary,
+                background = RedDarkBackground
+            )
+        } else {
+            lightColorScheme(
+                primary = RedLightPrimary,
+                secondary = RedLightSecondary,
+                tertiary = RedLightTertiary,
+                background = RedLightBackground
+            )
+        }
     }
 
     MaterialTheme(

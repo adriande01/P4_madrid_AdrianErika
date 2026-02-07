@@ -20,6 +20,11 @@ class ViewModel : ViewModel() {
     var isDarkMode by mutableStateOf(false)
         private set
 
+    var currentTheme by mutableStateOf("RED")
+        private set
+
+
+
     // Menus state to have the state when mobile turns
     var settingsMenuExpanded by mutableStateOf(false)
     var hamburgerMenuExpanded by mutableStateOf(false)
@@ -66,7 +71,9 @@ class ViewModel : ViewModel() {
         isDarkMode = !isDarkMode
     }
 
-
+    fun setTheme(theme: String) {
+        currentTheme = theme.uppercase()
+    }
 
     fun getAllPlacesFiltered(type: String): List<Place> {
         return try {

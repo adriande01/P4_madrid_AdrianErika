@@ -48,6 +48,7 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
     // 1.5 Call dark mode from viewModel to save the state
     val isDarkMode = viewModel.isDarkMode
+    val themeName = viewModel.currentTheme
 
     val context = LocalActivity.current as ComponentActivity
 
@@ -66,14 +67,15 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
     }
 
     // 2. Create Scaffold as structure of our app (top ==> Head, Bottom ==> NavHost)
-    P4_madrid_AdrianErikaTheme(darkTheme = isDarkMode, dynamicColor = false) {
+    P4_madrid_AdrianErikaTheme(
+        darkTheme = isDarkMode,
+        themeName = themeName
+    ) {
         Scaffold(
             topBar = {
                 Header(
                     isDarkMode = isDarkMode,
-                    // Call toggle dark mode from viewModel Cefalópodo
                     onToggleDarkMode = { viewModel.toggleDarkMode() },
-                    // Pass the viewModel to Header fun
                     viewModel = viewModel
                 )
             }
