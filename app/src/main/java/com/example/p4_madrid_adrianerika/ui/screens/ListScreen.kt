@@ -1,5 +1,8 @@
 package com.example.p4_madrid_adrianerika.ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -84,7 +87,15 @@ fun ListScreen(
                 // Dropdown menu for filters
                 DropdownMenu(
                     expanded = myViewModel.filterMenuExpanded,
-                    onDismissRequest = { myViewModel.filterMenuExpanded = false }
+                    onDismissRequest = { myViewModel.filterMenuExpanded = false },
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                        .background(MaterialTheme.colorScheme.background, MaterialTheme.shapes.medium)
+
                 ) {
                     // Favorites filter item
                     DropdownMenuItem(
@@ -100,7 +111,9 @@ fun ListScreen(
                                 )
                             }
                         },
-                        onClick = { myViewModel.showOnlyFavorites = !myViewModel.showOnlyFavorites }
+                        onClick = { myViewModel.showOnlyFavorites = !myViewModel.showOnlyFavorites },
+
+
                     )
 
                     // Dynamic SubType filters
@@ -152,7 +165,15 @@ fun ListScreen(
                     val isFav = myViewModel.favoriteIds.contains(place.id)
                     Card(
                         onClick = { onListClick(place) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.secondary
+                        ),
+                        border = BorderStroke(
+                            width = 2.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+
                     ) {
                         Row(
                             modifier = Modifier.padding(16.dp),
@@ -161,7 +182,9 @@ fun ListScreen(
                             Text(
                                 text = stringResource(place.name),
                                 modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.bodyLarge
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSecondary
+
                             )
                             if (isFav) {
                                 Icon(

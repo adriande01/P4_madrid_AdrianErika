@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -73,7 +74,7 @@ fun InfoScreen(
             Icon(
                 imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.Star,
                 contentDescription = "Favorite Toggle",
-                tint = if (isFavorite) Color(0xFFFFD700) else Color.Black,
+                tint = if (isFavorite) Color(0xFFFFD700) else MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier
                     .size(32.dp)
                     .padding(start = 4.dp)
@@ -99,13 +100,13 @@ fun InfoScreen(
         HorizontalDivider(
             modifier = Modifier.padding(vertical = 8.dp),
             thickness = 2.5.dp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onPrimary
         )
 
 
         // CENTRAL IMAGE WITH BLACK BORDER
         Card(
-            border = BorderStroke(2.dp, Color.Black),
+            border = BorderStroke(2.dp, MaterialTheme.colorScheme.onPrimary),
             shape = RectangleShape,
             modifier = Modifier
                 .fillMaxWidth()

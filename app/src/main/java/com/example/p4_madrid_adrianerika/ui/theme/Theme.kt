@@ -15,16 +15,30 @@ import androidx.compose.ui.platform.LocalContext
 
 val DarkColorScheme = darkColorScheme(
     primary = RedDarkPrimary,
+    onPrimary = Color.White,
+
     secondary = RedDarkSecondary,
+    onSecondary = Color.White,
+
     tertiary = RedDarkTertiary,
-    background = RedDarkBackground
+    onTertiary = Color.White,
+
+    background = RedDarkBackground,
+    onBackground = Color.White
 )
 
 val LightColorScheme = lightColorScheme(
     primary = RedLightPrimary,
+    onPrimary = Color.Black,
+
     secondary = RedLightSecondary,
+    onSecondary = Color.Black,
+
     tertiary = RedLightTertiary,
-    background = RedLightBackground
+    onTertiary = Color.Black,
+
+    background = RedLightBackground,
+    onBackground = Color.Black
 )
 
 
@@ -41,49 +55,67 @@ fun P4_madrid_AdrianErikaTheme(
         "BLUE" -> if (darkTheme) {
             darkColorScheme(
                 primary = BlueDarkPrimary,
+                onPrimary = Color.White,
+
                 secondary = BlueDarkSecondary,
+                onSecondary = Color.White,
+
                 tertiary = BlueDarkTertiary,
-                background = BlueDarkBackground
+                onTertiary = Color.White,
+
+                background = BlueDarkBackground,
+                onBackground = Color.White
             )
         } else {
             lightColorScheme(
                 primary = BlueLightPrimary,
+                onPrimary = Color.Black,
+
                 secondary = BlueLightSecondary,
+                onSecondary = Color.Black,
+
                 tertiary = BlueLightTertiary,
-                background = BlueLightBackground
+                onTertiary = Color.Black,
+
+                background = BlueLightBackground,
+                onBackground = Color.Black
             )
         }
 
         "PINK" -> if (darkTheme) {
             darkColorScheme(
                 primary = PinkDarkPrimary,
+                onPrimary = Color.White,
+
                 secondary = PinkDarkSecondary,
+                onSecondary = Color.White,
+
                 tertiary = PinkDarkTertiary,
-                background = PinkDarkBackground
+                onTertiary = Color.White,
+
+                background = PinkDarkBackground,
+                onBackground = Color.White
             )
         } else {
             lightColorScheme(
                 primary = PinkLightPrimary,
+                onPrimary = Color.Black,
+
                 secondary = PinkLightSecondary,
+                onSecondary = Color.Black,
+
                 tertiary = PinkLightTertiary,
-                background = PinkLightBackground
+                onTertiary = Color.Black,
+
+                background = PinkLightBackground,
+                onBackground = Color.Black
             )
         }
 
         else -> if (darkTheme) { // Default red theme
-            darkColorScheme(
-                primary = RedDarkPrimary,
-                secondary = RedDarkSecondary,
-                tertiary = RedDarkTertiary,
-                background = RedDarkBackground
-            )
+            DarkColorScheme
         } else {
-            lightColorScheme(
-                primary = RedLightPrimary,
-                secondary = RedLightSecondary,
-                tertiary = RedLightTertiary,
-                background = RedLightBackground
-            )
+           LightColorScheme
         }
     }
 

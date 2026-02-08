@@ -1,5 +1,6 @@
 package com.example.p4_madrid_adrianerika.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,7 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +44,14 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
-                    .padding(8.dp)
+                    .padding(8.dp),
+                border = BorderStroke(
+                    width = 3.dp,
+                    color = MaterialTheme.colorScheme.primary
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             ) {
                 Box(modifier = Modifier.fillMaxSize()){
                     // 1. Image of card
@@ -70,7 +80,13 @@ fun HomeScreen(
                         text = stringResource(id = type.titleResId),
                         color = Color.White,
                         style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .background(
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.65f),
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
 
