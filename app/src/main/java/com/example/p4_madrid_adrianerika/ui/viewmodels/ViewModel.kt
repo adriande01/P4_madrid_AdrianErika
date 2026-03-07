@@ -7,17 +7,23 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.p4_madrid_adrianerika.data.PlaceRepository
+import com.example.p4_madrid_adrianerika.data.SessionDataStore
 import com.example.p4_madrid_adrianerika.db.AppDatabase
 import com.example.p4_madrid_adrianerika.db.FavoriteEntity
+import com.example.p4_madrid_adrianerika.db.UserEntity
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.SubType
 import com.example.p4_madrid_adrianerika.models.Type
+import com.example.p4_madrid_adrianerika.ui.screens.sha256
 import kotlinx.coroutines.launch
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
     // --- DATABASE + REPOSITORY ---
     private val dao = AppDatabase.getInstance(application).appDao()
+
+    // Session
+    private val sessionDataStore = SessionDataStore(application)
     private val repository = PlaceRepository(dao)
 
     // --- CURRENT USER ---
@@ -126,5 +132,49 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setTheme(theme: String) {
         currentTheme = theme.uppercase()
+    }
+
+    // Register new user
+    fun registerUser(user: UserEntity, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val existing = dao.getUser(user.username)
+            if (existing != null) {
+                onError("Username already exists")
+            } else {
+                dao.insertUser(user)
+                onSuccess()
+            }
+        }
+    }
+
+    // Login user
+    fun loginUser(username: String, password: String, rememberMe: Boolean, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val user = dao.getUser(username)
+            if (user == null || user.passwordHash != sha256(password)) {
+                onError("Wrong username or password")
+            } else {
+                if (rememberMe) {
+                    sessionDataStore.saveUserId(user.id)
+                }
+                loadFavorites(user.id)
+                onSuccess()
+            }
+        }
+    }
+
+    // Logout
+    fun logout(onDone: () -> Unit) {
+        viewModelScope.launch {
+            sessionDataStore.clearUserId()
+            currentUserId = null
+            favoriteIds = emptySet()
+            onDone()
+        }
+    }
+
+    private fun sha256(input: String): String {
+        val bytes = java.security.MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
     }
 }

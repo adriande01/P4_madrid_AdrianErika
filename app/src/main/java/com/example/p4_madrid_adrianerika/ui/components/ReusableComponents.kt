@@ -36,7 +36,7 @@ import com.example.p4_madrid_adrianerika.ui.viewmodels.ViewModel
 
 // Fun header app to show info about our app and hamburguer menu
 @Composable
-fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewModel) {
+fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewModel, onLogout: () -> Unit) {
     // Get the context
     val context = LocalContext.current
 
@@ -116,6 +116,14 @@ fun Header(isDarkMode: Boolean, onToggleDarkMode: () -> Unit, viewModel: ViewMod
                         onClick = {
                             viewModel.setTheme("PINK")
                             viewModel.settingsMenuExpanded = false
+                        }
+                    )
+                    // Logout option
+                    DropdownMenuItem(
+                        text = { Text("Cerrar sesión") },
+                        onClick = {
+                            viewModel.hamburgerMenuExpanded = false
+                            onLogout()
                         }
                     )
                 }

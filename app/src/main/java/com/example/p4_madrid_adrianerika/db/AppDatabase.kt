@@ -74,7 +74,7 @@ interface AppDao {
 // DATABASE — main Room database class
 @Database(
     entities = [UserEntity::class, PlaceEntity::class, FavoriteEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -89,9 +89,10 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "madrid_db"
-                ).build().also { INSTANCE = it }
+                )
+                    .fallbackToDestructiveMigration() // wipes DB on version change
+                    .build().also { INSTANCE = it }
             }
         }
     }
 }
-
