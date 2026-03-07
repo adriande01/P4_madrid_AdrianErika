@@ -1,49 +1,116 @@
 package com.example.p4_madrid_adrianerika.ui.viewmodels
 
+import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import com.example.p4_madrid_adrianerika.data.DataSource
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.p4_madrid_adrianerika.data.PlaceRepository
+import com.example.p4_madrid_adrianerika.db.AppDatabase
+import com.example.p4_madrid_adrianerika.db.FavoriteEntity
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.SubType
 import com.example.p4_madrid_adrianerika.models.Type
+import kotlinx.coroutines.launch
 
+class ViewModel(application: Application) : AndroidViewModel(application) {
 
-class ViewModel : ViewModel() {
+    // --- DATABASE + REPOSITORY ---
+    private val dao = AppDatabase.getInstance(application).appDao()
+    private val repository = PlaceRepository(dao)
 
-    // Auxiliar var to make UI redraw
-    var favoriteUpdateTick by mutableStateOf(0)
+    // --- CURRENT USER ---
+    var currentUserId by mutableStateOf<String?>(null)
+
+    // --- PLACES loaded from Room/API ---
+    var places by mutableStateOf<List<Place>>(emptyList())
         private set
 
-    // Theme state
+    // --- LOADING state ---
+    var isLoading by mutableStateOf(false)
+        private set
+
+    // --- THEME ---
     var isDarkMode by mutableStateOf(false)
         private set
-
     var currentTheme by mutableStateOf("RED")
         private set
 
-
-
-    // Menus state to have the state when mobile turns
+    // --- MENU STATES ---
     var settingsMenuExpanded by mutableStateOf(false)
     var hamburgerMenuExpanded by mutableStateOf(false)
-
-    // DataSource
-    private val dataSource: DataSource = DataSource()
-
-    // Check menu expanded
     var filterMenuExpanded by mutableStateOf(false)
 
-    // Control only favorite checkbox places
+    // --- FILTERS ---
     var showOnlyFavorites by mutableStateOf(false)
-
-    // Save selected only selected sybtypes in filter (checkboxes)
     var selectedSubTypes by mutableStateOf(setOf<SubType>())
 
-    // Mutable list to save all fav ids better than change actual object (redraw)
+    // --- FAVORITES ---
     var favoriteIds by mutableStateOf(setOf<String>())
         private set
+
+    // Load places from Repository (API first time, Room after)
+    fun loadPlaces(type: String) {
+        viewModelScope.launch {
+            isLoading = true
+            val entities = repository.loadPlaces(type)
+            places = entities.map { entity ->
+                Place(
+                    id = entity.id,
+                    name = entity.name,
+                    address = entity.address,
+                    gMapsUrl = entity.gMapsUrl,
+                    imageUrl = entity.imageUrl,
+                    image = entity.image,
+                    lat = entity.lat,
+                    lng = entity.lng,
+                    type = Type.valueOf(entity.type),
+                    subType = SubType.valueOf(entity.subType)
+                )
+            }
+            isLoading = false
+        }
+    }
+
+    // Load favorites for the logged in user from Room
+    fun loadFavorites(userId: String) {
+        currentUserId = userId
+        viewModelScope.launch {
+            val favs = dao.getFavsByUser(userId)
+            favoriteIds = favs.toSet()
+        }
+    }
+
+    // Toggle favorite — saves to Room + updates UI
+    fun toggleFavorite(id: String) {
+        val userId = currentUserId ?: return
+        viewModelScope.launch {
+            if (favoriteIds.contains(id)) {
+                dao.deleteFav(FavoriteEntity(userId, id))
+                favoriteIds = favoriteIds - id
+            } else {
+                dao.insertFav(FavoriteEntity(userId, id))
+                favoriteIds = favoriteIds + id
+            }
+        }
+    }
+
+    // Get filtered + grouped places for ListScreen
+    fun getFilteredPlacesGrouped(typeName: String): Map<SubType, List<Place>> {
+        return places
+            .filter { place ->
+                val matchesFav = if (showOnlyFavorites) favoriteIds.contains(place.id) else true
+                val matchesSub = if (selectedSubTypes.isNotEmpty()) selectedSubTypes.contains(place.subType) else true
+                matchesFav && matchesSub
+            }
+            .groupBy { it.subType }
+    }
+
+    // Get one place by id
+    fun getPlaceById(id: String): Place? {
+        return places.find { it.id == id }
+    }
 
     fun toggleSubTypeFilter(subType: SubType) {
         selectedSubTypes = if (selectedSubTypes.contains(subType)) {
@@ -53,57 +120,11 @@ class ViewModel : ViewModel() {
         }
     }
 
-    fun toggleFavorite(id: String) {
-
-        // Update Set (call composables so it changes)
-        favoriteIds = if (favoriteIds.contains(id)) {
-            favoriteIds - id
-        } else {
-            favoriteIds + id
-        }
-
-        // Toggle in Datasource not neccesary but I want to make sure
-        dataSource.toggleFavorite(id)
-    }
-
     fun toggleDarkMode() {
         isDarkMode = !isDarkMode
     }
 
     fun setTheme(theme: String) {
         currentTheme = theme.uppercase()
-    }
-
-    fun getAllPlacesFiltered(type: String): List<Place> {
-        return try {
-            val enum = Type.valueOf(type)
-            dataSource.getPlaces(enum)
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
-
-    // Filter places depending on fav or subtype or both
-    fun getFilteredPlacesGrouped(typeName: String): Map<SubType, List<Place>> {
-        return try {
-            val typeEnum = Type.valueOf(typeName)
-            val allPlaces = dataSource.getPlaces(typeEnum)
-
-            allPlaces.filter { place ->
-                // If switch fav is on ==> only fav
-                val matchesFav = if (showOnlyFavorites) favoriteIds.contains(place.id) else true
-                // If there is not selected subtype includes all, if not ==> includes only selected subtypes
-                val matchesSub = if (selectedSubTypes.isNotEmpty()) selectedSubTypes.contains(place.subType) else true
-
-                matchesFav && matchesSub
-            }.groupBy { it.subType }
-        } catch (e: Exception) {
-            emptyMap()
-        }
-    }
-
-    fun getPlaceById(id: String): Place? {
-        val idInt = id.toIntOrNull() ?: return null
-        return dataSource.getPlaceById(id)
     }
 }

@@ -79,4 +79,19 @@ interface AppDao {
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun appDao(): AppDao
+
+    companion object {
+        @Volatile private var INSTANCE: AppDatabase? = null
+
+        fun getInstance(context: android.content.Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "madrid_db"
+                ).build().also { INSTANCE = it }
+            }
+        }
+    }
 }
+
