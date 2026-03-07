@@ -42,7 +42,7 @@ class ViewModel : ViewModel() {
     var selectedSubTypes by mutableStateOf(setOf<SubType>())
 
     // Mutable list to save all fav ids better than change actual object (redraw)
-    var favoriteIds by mutableStateOf(setOf<Int>())
+    var favoriteIds by mutableStateOf(setOf<String>())
         private set
 
     fun toggleSubTypeFilter(subType: SubType) {
@@ -54,17 +54,16 @@ class ViewModel : ViewModel() {
     }
 
     fun toggleFavorite(id: String) {
-        val idInt = id.toIntOrNull() ?: return
 
         // Update Set (call composables so it changes)
-        favoriteIds = if (favoriteIds.contains(idInt)) {
-            favoriteIds - idInt
+        favoriteIds = if (favoriteIds.contains(id)) {
+            favoriteIds - id
         } else {
-            favoriteIds + idInt
+            favoriteIds + id
         }
 
         // Toggle in Datasource not neccesary but I want to make sure
-        dataSource.toggleFavorite(idInt)
+        dataSource.toggleFavorite(id)
     }
 
     fun toggleDarkMode() {
@@ -105,6 +104,6 @@ class ViewModel : ViewModel() {
 
     fun getPlaceById(id: String): Place? {
         val idInt = id.toIntOrNull() ?: return null
-        return dataSource.getPlaceById(idInt)
+        return dataSource.getPlaceById(id)
     }
 }

@@ -1,172 +1,72 @@
 package com.example.p4_madrid_adrianerika.data
 
 import com.example.p4_madrid_adrianerika.R
-
 import com.example.p4_madrid_adrianerika.models.Place
 import com.example.p4_madrid_adrianerika.models.SubType
 import com.example.p4_madrid_adrianerika.models.Type
 
 class DataSource {
-    // List of all sites in our app, can be mod
+    // List of all places in the app with literal strings instead of R.string references
     private val allPlaces = mutableListOf(
+
         // RESTAURANTS
-        Place(
-            R.string.R1_ID,
-            Type.RESTAURANT,
-            SubType.R_PIZZERIA,
-            R.string.R1_NAME,
-            R.drawable.r1,
-            R.string.R1_ADDRESS,
-            R.string.R1_URL,
-            false
-        ),
-        Place(
-            R.string.R2_ID,
-            Type.RESTAURANT,
-            SubType.R_PIZZERIA,
-            R.string.R2_NAME,
-            R.drawable.r2,
-            R.string.R2_ADDRESS,
-            R.string.R2_URL,
-            false
-        ),
-        Place(
-            R.string.R3_ID,
-            Type.RESTAURANT,
-            SubType.R_HAMBURGER,
-            R.string.R3_NAME,
-            R.drawable.r3,
-            R.string.R3_ADDRESS,
-            R.string.R3_URL,
-            false
-        ),
-        Place(
-            R.string.R4_ID,
-            Type.RESTAURANT,
-            SubType.R_HAMBURGER,
-            R.string.R4_NAME,
-            R.drawable.r4,
-            R.string.R4_ADDRESS,
-            R.string.R4_URL,
-            false
-        ),
-        Place(
-            R.string.R5_ID,
-            Type.RESTAURANT,
-            SubType.R_BUFFET,
-            R.string.R5_NAME,
-            R.drawable.r5,
-            R.string.R5_ADDRESS,
-            R.string.R5_URL,
-            false
-        ),
-        Place(
-            R.string.R6_ID,
-            Type.RESTAURANT,
-            SubType.R_BUFFET,
-            R.string.R6_NAME,
-            R.drawable.r6,
-            R.string.R6_ADDRESS,
-            R.string.R6_URL,
-            false
-        ),
+        Place("R1", Type.RESTAURANT, SubType.R_PIZZERIA, "Fratelli Figurato",
+            R.drawable.r1, "Calle Alonso Cano, 37",
+            "https://maps.app.goo.gl/HQ573Zm7cCzRaotE7"),
+        Place("R2", Type.RESTAURANT, SubType.R_PIZZERIA, "Grosso Napoletano",
+            R.drawable.r2, "Calle de Sta Engracia, 48",
+            "https://maps.app.goo.gl/CPjhux7McNsJ5Cr66"),
+        Place("R3", Type.RESTAURANT, SubType.R_HAMBURGER, "Goiko Grill",
+            R.drawable.r3, "Calle de Prado, 15",
+            "https://maps.app.goo.gl/55xNwPPunmLwwCEKA"),
+        Place("R4", Type.RESTAURANT, SubType.R_HAMBURGER, "Burnout",
+            R.drawable.r4, "Calle de Fuencarral, 148",
+            "https://maps.app.goo.gl/eTJEjBN9L2zvRDZ98"),
+        Place("R5", Type.RESTAURANT, SubType.R_BUFFET, "Running Sushi in Osaka",
+            R.drawable.r5, "Calle de Hermosilla, 103",
+            "https://maps.app.goo.gl/mnS5z27b1G1Wu5YZ7"),
+        Place("R6", Type.RESTAURANT, SubType.R_BUFFET, "La Cabaña Argentina",
+            R.drawable.r6, "C. de Ventura de la Vega, 9, y 10",
+            "https://maps.app.goo.gl/2t5C3AQkmAzEaegs9"),
 
         // CINEMAS
-        Place(
-            R.string.C1_ID,
-            Type.CINEMA,
-            SubType.C_MANY_S,
-            R.string.C1_NAME,
-            R.drawable.c1,
-            R.string.C1_ADDRESS,
-            R.string.C1_URL,
-            false
-        ),
-        Place(
-            R.string.C2_ID,
-            Type.CINEMA,
-            SubType.C_MANY_S,
-            R.string.C2_NAME,
-            R.drawable.c2,
-            R.string.C2_ADDRESS,
-            R.string.C2_URL,
-            false
-        ),
-        Place(
-            R.string.C3_ID,
-            Type.CINEMA,
-            SubType.C_FEW_S,
-            R.string.C3_NAME,
-            R.drawable.c3,
-            R.string.C3_ADDRESS,
-            R.string.C3_URL,
-            false
-        ),
-        Place(
-            R.string.C4_ID,
-            Type.CINEMA,
-            SubType.C_FEW_S,
-            R.string.C4_NAME,
-            R.drawable.c4,
-            R.string.C4_ADDRESS,
-            R.string.C4_URL,
-            false
-        ),
+        Place("C1", Type.CINEMA, SubType.C_MANY_S, "Cine Yelmo Ideal",
+            R.drawable.c1, "Calle del Dr Cortezo, 6",
+            "https://maps.app.goo.gl/9oZeRJXS86aKwKKH8"),
+        Place("C2", Type.CINEMA, SubType.C_MANY_S, "Cinesa Proyecciones",
+            R.drawable.c2, "Calle de Fuencarral, 136",
+            "https://maps.app.goo.gl/bgKaYLqmPcDD3vrA7"),
+        Place("C3", Type.CINEMA, SubType.C_FEW_S, "Cine Doré",
+            R.drawable.c3, "Calle de Santa Isabel, 3",
+            "https://maps.app.goo.gl/zv9A3i5FESDDN9YQA"),
+        Place("C4", Type.CINEMA, SubType.C_FEW_S, "Sala Equis",
+            R.drawable.c4, "Calle del Duque de Alba, 4",
+            "https://maps.app.goo.gl/kgQVG8ebJYKt7nqe9"),
 
         // PARKS
-        Place(
-            R.string.P1_ID,
-            Type.PARK,
-            SubType.P_BIG,
-            R.string.P1_NAME,
-            R.drawable.p1,
-            R.string.P1_ADDRESS,
-            R.string.P1_URL,
-            false
-        ),
-        Place(
-            R.string.P2_ID,
-            Type.PARK,
-            SubType.P_BIG,
-            R.string.P2_NAME,
-            R.drawable.p2,
-            R.string.P2_ADDRESS,
-            R.string.P2_URL,
-            false
-        ),
-        Place(
-            R.string.P3_ID,
-            Type.PARK,
-            SubType.P_LIT,
-            R.string.P3_NAME,
-            R.drawable.p3,
-            R.string.P3_ADDRESS,
-            R.string.P3_URL,
-            false
-        ),
-        Place(
-            R.string.P4_ID,
-            Type.PARK,
-            SubType.P_LIT,
-            R.string.P4_NAME,
-            R.drawable.p4,
-            R.string.P4_ADDRESS,
-            R.string.P4_URL,
-            false
-        )
+        Place("P1", Type.PARK, SubType.P_BIG, "El Retiro",
+            R.drawable.p1, "Retiro, 28009 Madrid",
+            "https://maps.app.goo.gl/bJU8dMtTaQJzcQFP6"),
+        Place("P2", Type.PARK, SubType.P_BIG, "Casa de Campo",
+            R.drawable.p2, "Paseo de la Puerta del Ángel, 1",
+            "https://maps.app.goo.gl/EVJfBtq6f2aNfiwu8"),
+        Place("P3", Type.PARK, SubType.P_LIT, "Real Jardín Botánico",
+            R.drawable.p3, "Plaza de Murillo, 2",
+            "https://maps.app.goo.gl/cEhKmTHTvthT2MLq8"),
+        Place("P4", Type.PARK, SubType.P_LIT, "Templo de Debod",
+            R.drawable.p4, "Calle de Ferraz, 1",
+            "https://maps.app.goo.gl/GQK9Fj3Mfy9YGM546")
     )
 
-    // Func to toggle the fav value
-    fun toggleFavorite(placeId: Int) {
+    // Toggle favorite state of a place by its String id
+    fun toggleFavorite(placeId: String) {
         val index = allPlaces.indexOfFirst { it.id == placeId }
         if (index != -1) {
-            // Invertimos el valor actual
             allPlaces[index].favorite = !allPlaces[index].favorite
         }
     }
 
-
-    // Func to get all places
+    // Get places filtered by type, subtype and/or favorite status
     fun getPlaces(type: Type? = null, subType: SubType? = null, favorite: Boolean? = null): List<Place> {
         return allPlaces.filter { place ->
             (type == null || place.type == type) &&
@@ -175,14 +75,8 @@ class DataSource {
         }
     }
 
-    // Func to get one Place by id
-    fun getPlaceById(id: Int): Place? {
-        allPlaces.forEach { place ->
-            if (place.id == id){
-                return place
-            }
-        }
-        return null
+    // Get a single place by its String id
+    fun getPlaceById(id: String): Place? {
+        return allPlaces.firstOrNull { it.id == id }
     }
-
 }

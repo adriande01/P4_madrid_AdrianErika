@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -57,4 +58,21 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Room database
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Retrofit + Gson (API calls)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    // DataStore (session persistence)
+    implementation(libs.datastore)
+    // Coil (image loading)
+    implementation(libs.coil)
+    // Coroutines
+    implementation(libs.coroutines)
+    // Location
+    implementation(libs.play.services.location)
 }

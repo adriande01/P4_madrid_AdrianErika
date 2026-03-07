@@ -43,8 +43,7 @@ fun InfoScreen(
     //val myViewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
     // 2. Get the place by id to show his info, default: R1
-    val placeF =
-        myViewModel.getPlaceById(id) ?: myViewModel.getPlaceById(stringResource(R.string.R1_ID))
+    val placeF = myViewModel.getPlaceById(id) ?: myViewModel.getPlaceById("R1")
 
     // Context for Intents (Maps and Share)
     val context = LocalContext.current
@@ -89,7 +88,7 @@ fun InfoScreen(
 
         // PLACE NAME (Main Title)
         Text(
-            text = stringResource(placeF?.name ?: R.string.R1_NAME),
+            text = placeF?.name ?: "Fratelli Figurato",
             fontSize = 34.sp,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.ExtraBold,
@@ -122,7 +121,7 @@ fun InfoScreen(
 
         // ADDRESS (Located below the image on the left)
         Text(
-            text = stringResource(placeF?.address ?: R.string.R1_ADDRESS),
+            text = placeF?.address ?: "Calle Alonso Cano, 37",
             fontSize = 18.sp,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Medium,
@@ -144,7 +143,7 @@ fun InfoScreen(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.clickable {
-                    val url = context.getString(placeF?.gMapsUrl ?: R.string.R1_URL)
+                    val url = placeF?.gMapsUrl ?: "https://maps.app.goo.gl/HQ573Zm7cCzRaotE7"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     context.startActivity(intent)
                 }
@@ -171,7 +170,7 @@ fun InfoScreen(
                         action = Intent.ACTION_SEND
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "Check out this place: ${context.getString(placeF?.name ?: R.string.R1_NAME)}"
+                            "Check out this place: ${placeF?.name ?: "Fratelli Figurato"}"
                         )
                         type = "text/plain"
                     }
