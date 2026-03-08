@@ -80,7 +80,7 @@ fun ListScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Decorative top gradient — same style as Home/Login screens
+        // Decorative top gradient
         Box(
             modifier = Modifier
                 .fillMaxWidth()

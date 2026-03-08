@@ -44,7 +44,7 @@ fun HomeScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Decorative top gradient — same style as Login and Register screens
+        // Decorative top gradient
         Box(
             modifier = Modifier
                 .fillMaxWidth()

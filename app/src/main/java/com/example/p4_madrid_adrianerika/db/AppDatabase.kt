@@ -3,7 +3,7 @@ package com.example.p4_madrid_adrianerika.db
 import androidx.room.*
 
 
-// ENTITIES — tables in the Room database
+// ENTITIES, tables in the Room database
 
 // Table for registered users
 @Entity(tableName = "users")
@@ -28,7 +28,7 @@ data class PlaceEntity(
     val subType: String
 )
 
-// Table for favorites — links a user to a place
+// Table for favorites, links a user to a place
 @Entity(
     tableName = "favorites",
     primaryKeys = ["userId", "placeId"]
@@ -38,18 +38,18 @@ data class FavoriteEntity(
     val placeId: String
 )
 
-// DAO — database operations
+// DAO database operations
 @Dao
 interface AppDao {
 
-    // --- USERS ---
+    // USERS
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
     suspend fun getUser(username: String): UserEntity?
 
-    // --- PLACES ---
+    // PLACES
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlaces(places: List<PlaceEntity>)
 
@@ -59,7 +59,7 @@ interface AppDao {
     @Query("SELECT COUNT(*) FROM places WHERE type = :type")
     suspend fun countPlaces(type: String): Int
 
-    // --- FAVORITES ---
+    // FAVORITES
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFav(fav: FavoriteEntity)
 
@@ -71,7 +71,7 @@ interface AppDao {
 }
 
 
-// DATABASE — main Room database class
+// DATABASE main Room database class
 @Database(
     entities = [UserEntity::class, PlaceEntity::class, FavoriteEntity::class],
     version = 5,

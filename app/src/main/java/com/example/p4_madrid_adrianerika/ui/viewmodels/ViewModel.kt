@@ -19,44 +19,44 @@ import kotlinx.coroutines.launch
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
-    // --- DATABASE + REPOSITORY ---
+    // DATABASE and REPOSITORY
     private val dao = AppDatabase.getInstance(application).appDao()
 
     // Session
     private val sessionDataStore = SessionDataStore(application)
     private val repository = PlaceRepository(dao)
 
-    // --- CURRENT USER ---
+    // CURRENT USER
     var currentUserId by mutableStateOf<String?>(null)
 
-    // --- PLACES loaded from Room/API ---
+    // PLACES loaded from Room/API
     var places by mutableStateOf<List<Place>>(emptyList())
         private set
 
-    // --- LOADING state ---
+    // LOADING state
     var isLoading by mutableStateOf(false)
         private set
 
-    // --- THEME ---
+    // THEME
     var isDarkMode by mutableStateOf(false)
         private set
     var currentTheme by mutableStateOf("RED")
         private set
 
-    // --- LANGUAGE ---
+    // LANGUAGE
     var language by mutableStateOf("EN")
         private set
 
-    // --- MENU STATES ---
+    // MENU STATES
     var settingsMenuExpanded by mutableStateOf(false)
     var hamburgerMenuExpanded by mutableStateOf(false)
     var filterMenuExpanded by mutableStateOf(false)
 
-    // --- FILTERS ---
+    // FILTERS
     var showOnlyFavorites by mutableStateOf(false)
     var selectedSubTypes by mutableStateOf(setOf<SubType>())
 
-    // --- FAVORITES ---
+    // FAVORITES
     var favoriteIds by mutableStateOf(setOf<String>())
         private set
 
@@ -92,7 +92,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Toggle favorite — saves to Room + updates UI
+    // Toggle favorite saves to Room and updates UI
     fun toggleFavorite(id: String) {
         val userId = currentUserId ?: return
         viewModelScope.launch {
@@ -106,7 +106,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Get filtered + grouped places for ListScreen
+    // Get filtered and grouped places for ListScreen
     fun getFilteredPlacesGrouped(typeName: String): Map<SubType, List<Place>> {
         return places
             .filter { place ->

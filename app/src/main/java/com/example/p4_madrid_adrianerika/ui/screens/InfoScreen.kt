@@ -184,7 +184,7 @@ fun InfoScreen(
                     .padding(top = 10.dp)
             )
 
-            // Decorative bar under title — same style as HomeScreen
+            // Decorative bar under title
             Box(
                 modifier = Modifier
                     .align(Alignment.Start)

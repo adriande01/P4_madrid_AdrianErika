@@ -83,7 +83,7 @@ fun RegisterScreen(
                 )
         )
 
-        // Main content column with fade + slide animations applied
+        // Main content column with fade and slide animations applied
         Column(
             modifier = Modifier
                 .fillMaxSize()

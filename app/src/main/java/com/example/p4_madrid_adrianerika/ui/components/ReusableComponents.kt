@@ -143,7 +143,7 @@ fun Header(
                         expanded = viewModel.hamburgerMenuExpanded,
                         onDismissRequest = { viewModel.hamburgerMenuExpanded = false }
                     ) {
-                        // Language toggle — switches between English and Spanish
+                        // Language toggle, switches between English and Spanish
                         DropdownMenuItem(
                             text = { Text(AppStrings.languageButton.tr(viewModel.language)) },
                             onClick = {
@@ -151,7 +151,7 @@ fun Header(
                                 viewModel.hamburgerMenuExpanded = false
                             }
                         )
-                        // About us — opens GitHub repo
+                        // About us, opens GitHub repo
                         DropdownMenuItem(
                             text = { Text(AppStrings.aboutUs.tr(language)) },
                             onClick = {
