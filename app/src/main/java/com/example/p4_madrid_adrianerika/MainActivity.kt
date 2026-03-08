@@ -39,6 +39,7 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
     val navController = rememberNavController()
     val isDarkMode = viewModel.isDarkMode
     val themeName = viewModel.currentTheme
+    val language = viewModel.language
     val context = LocalActivity.current as ComponentActivity
 
     // Check if there is a saved session
@@ -62,6 +63,7 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
     P4_madrid_AdrianErikaTheme(darkTheme = isDarkMode, themeName = themeName) {
         Scaffold(
             topBar = {
+                // Pass language to Header so menu items are translated
                 Header(
                     isDarkMode = isDarkMode,
                     onToggleDarkMode = { viewModel.toggleDarkMode() },
@@ -72,7 +74,8 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
                                 popUpTo(0) { inclusive = true }
                             }
                         }
-                    }
+                    },
+                    language = language
                 )
             }
         ) { innerPadding ->
@@ -89,19 +92,24 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
                                 popUpTo(0) { inclusive = true }
                             }
                         },
-                        onNavigateToRegister = { navController.navigate("register") }
+                        onNavigateToRegister = { navController.navigate("register") },
+                        language = language
                     )
                 }
 
                 composable("register") {
                     RegisterScreen(
                         viewModel = viewModel,
-                        onNavigateToLogin = { navController.popBackStack() }
+                        onNavigateToLogin = { navController.popBackStack() },
+                        language = language
                     )
                 }
 
                 composable("home") {
-                    HomeScreen(onCategoryClick = { type -> navigateToListScreen(navController, type) })
+                    HomeScreen(
+                        onCategoryClick = { type -> navigateToListScreen(navController, type) },
+                        language = language
+                    )
                 }
 
                 composable("list/{type}") { backStackEntry ->
@@ -109,13 +117,18 @@ fun Main(viewModel: ViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
                     ListScreen(
                         type = type,
                         myViewModel = viewModel,
-                        onListClick = { place -> navigateToInfoScreen(navController, place) }
+                        onListClick = { place -> navigateToInfoScreen(navController, place) },
+                        language = language
                     )
                 }
 
                 composable("info/{id}") { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id") ?: ""
-                    InfoScreen(id = id, myViewModel = viewModel)
+                    InfoScreen(
+                        id = id,
+                        myViewModel = viewModel,
+                        language = language
+                    )
                 }
             }
         }
@@ -130,10 +143,8 @@ fun navigateToInfoScreen(navController: NavHostController, place: Place) {
     navController.navigate("info/${place.id}")
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Main()
 }
-

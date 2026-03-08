@@ -81,7 +81,12 @@ class PlaceRepository(private val dao: AppDao) {
                     name = name,
                     address = address,
                     gMapsUrl = "https://maps.google.com/?q=$lat,$lng",
-                    imageUrl = "https://picsum.photos/seed/${el.id}/400/300",
+                    imageUrl = when (type) {
+                        "RESTAURANT" -> "https://loremflickr.com/400/300/restaurant,food?lock=${el.id}"
+                        "CINEMA"     -> "https://loremflickr.com/400/300/film,theater?lock=${el.id}"
+                        "PARK"       -> "https://loremflickr.com/400/300/garden,trees?lock=${el.id}"
+                        else         -> "https://loremflickr.com/400/300/city,madrid?lock=${el.id}"
+                    },
                     image = null,
                     lat = lat,
                     lng = lng,

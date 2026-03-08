@@ -43,6 +43,10 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     var currentTheme by mutableStateOf("RED")
         private set
 
+    // --- LANGUAGE ---
+    var language by mutableStateOf("EN")
+        private set
+
     // --- MENU STATES ---
     var settingsMenuExpanded by mutableStateOf(false)
     var hamburgerMenuExpanded by mutableStateOf(false)
@@ -176,5 +180,10 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     private fun sha256(input: String): String {
         val bytes = java.security.MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    // Language
+    fun toggleLanguage() {
+        language = if (language == "EN") "ES" else "EN"
     }
 }
