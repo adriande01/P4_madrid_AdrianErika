@@ -1,3 +1,6 @@
+// Adrián de Antonio Sanz
+// Erika Toledano Morgadez
+
 package com.example.p4_madrid_adrianerika
 
 import android.os.Bundle
