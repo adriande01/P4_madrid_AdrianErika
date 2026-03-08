@@ -7,6 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PlaceRepository(private val dao: AppDao) {
 
+    private val UNSPLASH_KEY = "46uqNHiaHSUIpOzsUbJjwdhS3ier6nimyRc6L3UuEzc" // ACCESS KEY
+
     private val service: OverpassService = Retrofit.Builder()
         .baseUrl("https://overpass-api.de/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -23,7 +25,6 @@ class PlaceRepository(private val dao: AppDao) {
         return "[out:json];$tag"
     }
 
-    // Maps OSM tags to our SubType enum
     private fun mapSubType(type: String, el: OverpassElement): String {
         return when (type) {
             "RESTAURANT" -> {
@@ -32,7 +33,7 @@ class PlaceRepository(private val dao: AppDao) {
                     cuisine.contains("pizza") -> "R_PIZZERIA"
                     cuisine.contains("burger") || cuisine.contains("american") -> "R_HAMBURGER"
                     cuisine.contains("buffet") || cuisine.contains("asian") || cuisine.contains("chinese") -> "R_BUFFET"
-                    else -> when (el.id % 3) { // distribute evenly if no cuisine tag
+                    else -> when (el.id % 3) {
                         0L -> "R_PIZZERIA"
                         1L -> "R_HAMBURGER"
                         else -> "R_BUFFET"
@@ -49,6 +50,17 @@ class PlaceRepository(private val dao: AppDao) {
             }
             else -> "R_PIZZERIA"
         }
+    }
+
+    // Gets a relevant image from Unsplash based on place type
+    private fun getImageUrl(type: String): String {
+        val query = when (type) {
+            "RESTAURANT" -> "restaurant+madrid"
+            "CINEMA"     -> "cinema+theater"
+            "PARK"       -> "park+madrid"
+            else         -> "madrid"
+        }
+        return "https://api.unsplash.com/photos/random?query=$query&client_id=$UNSPLASH_KEY"
     }
 
     suspend fun loadPlaces(type: String): List<PlaceEntity> {
@@ -69,7 +81,7 @@ class PlaceRepository(private val dao: AppDao) {
                     name = name,
                     address = address,
                     gMapsUrl = "https://maps.google.com/?q=$lat,$lng",
-                    imageUrl = "https://picsum.photos/seed/${el.id}/400/300", // unique image per place
+                    imageUrl = "https://picsum.photos/seed/${el.id}/400/300",
                     image = null,
                     lat = lat,
                     lng = lng,

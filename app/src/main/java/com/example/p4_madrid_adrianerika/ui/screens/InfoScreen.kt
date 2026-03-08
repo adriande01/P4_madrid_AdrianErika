@@ -30,7 +30,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import coil.compose.AsyncImage
 import com.example.p4_madrid_adrianerika.R
+import com.example.p4_madrid_adrianerika.models.Type
 import com.example.p4_madrid_adrianerika.ui.viewmodels.ViewModel
 import com.google.android.gms.location.LocationServices
 
@@ -133,19 +135,18 @@ fun InfoScreen(
             shape = RectangleShape,
             modifier = Modifier.fillMaxWidth().height(350.dp)
         ) {
-            if (placeF?.image != null) {
-                Image(
-                    painter = painterResource(placeF.image),
+            if (placeF?.imageUrl != null) {
+                AsyncImage(
+                    model = placeF.imageUrl,
                     contentDescription = "Place Image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
             } else {
-                // Image by type
                 val fallback = when (placeF?.type) {
-                    com.example.p4_madrid_adrianerika.models.Type.RESTAURANT -> R.drawable.r
-                    com.example.p4_madrid_adrianerika.models.Type.CINEMA -> R.drawable.c
-                    com.example.p4_madrid_adrianerika.models.Type.PARK -> R.drawable.p
+                    Type.RESTAURANT -> R.drawable.r
+                    Type.CINEMA -> R.drawable.c
+                    Type.PARK -> R.drawable.p
                     else -> R.drawable.r
                 }
                 Image(
